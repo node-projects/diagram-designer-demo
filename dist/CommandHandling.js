@@ -18,7 +18,7 @@ export class CommandHandling {
         else if (commandName === 'newFixedWidth')
             this.appShell.newDocument(true);
         else if (commandName === 'github')
-            window.location.href = 'https://github.com/node-projects/web-component-designer';
+            window.location.href = 'https://github.com/node-projects/diagram-designer-demo';
         else if (this.dockManager.activeDocument) {
             let target = this.dockManager.activeDocument.elementContent.assignedElements()[0];
             if (target.executeCommand) {
