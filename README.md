@@ -1,2 +1,6 @@
 # diagram-designer-demo
-A Demo using the web-component-designer for a diagram designer
+Demonstration project using https://github.com/node-projects/web-component-designer for a diagram designer
+
+## url of demo project
+
+https://node-projects.github.io/diagram-designer-demo/index.html
