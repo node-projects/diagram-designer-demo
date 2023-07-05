@@ -1,5 +1,5 @@
 import { AbstractExtension, EventNames, IDesignItem, IDesignerCanvas, IExtensionManager, IRect } from "@node-projects/web-component-designer";
-import { IConnectorPosition, IConnectorPositionElement } from "../IConnectorPosition.js";
+import { IConnectorPosition, IConnectorPositionElement } from "../../IConnectorPosition.js";
 
 
 export class ShowConnectorPositionsExtension extends AbstractExtension {
@@ -41,17 +41,29 @@ export class ShowConnectorPositionsExtension extends AbstractExtension {
     let circle = this._drawCircle(xPos, yPos, 7 / this.designerCanvas.zoomFactor, 'svg-connector', oldCircle);
     circle.style.strokeWidth = (1 / this.designerCanvas.zoomFactor).toString();
     if (!oldCircle) {
-      circle.addEventListener(EventNames.PointerDown, event => this._pointerAction(event));
-      circle.addEventListener(EventNames.PointerMove, event => this._pointerAction(event));
-      circle.addEventListener(EventNames.PointerUp, event => this._pointerAction(event));
+      circle.addEventListener(EventNames.PointerDown, event => this._pointerAction(event, circle));
+      circle.addEventListener(EventNames.PointerMove, event => this._pointerAction(event, circle));
+      circle.addEventListener(EventNames.PointerUp, event => this._pointerAction(event, circle));
     }
     circle.style.cursor = 'pointer';
     return circle;
   }
 
-  _pointerAction(event: PointerEvent) {
+  _pointerAction(event: PointerEvent, circle: SVGCircleElement) {
     event.preventDefault();
     event.stopPropagation();
+
+    switch (event.type) {
+      case EventNames.PointerDown:
+        circle.setPointerCapture(event.pointerId);
+        break;
+      case EventNames.PointerMove:
+
+        break;
+      case EventNames.PointerUp:
+        circle.releasePointerCapture(event.pointerId);
+        break;
+    }
   }
 
   override dispose() {
