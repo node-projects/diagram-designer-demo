@@ -1,0 +1,9 @@
+{
+    "elements": [
+        {
+            "tag": "demo-condition",
+            "defaultWidth": "200px",
+            "defaultHeight": "130px"
+        }
+    ]
+}

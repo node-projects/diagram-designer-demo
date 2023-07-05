@@ -1,0 +1,7 @@
+{
+  "name": "diagram-designer-demo",
+  "short_name": "diagram-designer-demo",
+  "description": "node projects - diagram-designer-demo",
+  "start_url": "/",
+  "display": "standalone"
+}
