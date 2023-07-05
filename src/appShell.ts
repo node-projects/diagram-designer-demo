@@ -1,8 +1,10 @@
-import { JsonFileElementsService, TreeViewExtended, PropertyGrid, DocumentContainer, NodeHtmlParserService, ListPropertiesService, PaletteTreeView, CopyPasteAsJsonService, PointerToolButtonProvider, SelectorToolButtonProvider, SeperatorToolProvider, ZoomToolButtonProvider } from '@node-projects/web-component-designer';
+import { JsonFileElementsService, TreeViewExtended, PropertyGrid, DocumentContainer, PaletteTreeView, CopyPasteAsJsonService, PointerToolButtonProvider, SelectorToolButtonProvider, SeperatorToolProvider, ZoomToolButtonProvider, ExtensionType } from '@node-projects/web-component-designer';
 import createDefaultServiceContainer from '@node-projects/web-component-designer/dist/elements/services/DefaultServiceBootstrap.js';
 
 let serviceContainer = createDefaultServiceContainer();
 serviceContainer.register("copyPasteService", new CopyPasteAsJsonService());
+serviceContainer.designerExtensions.set(ExtensionType.MouseOver, [new ShowConnectorPositionsExtensionProvider()]);
+serviceContainer.designerExtensions.get(ExtensionType.PrimarySelection).push(new ShowConnectorPositionsExtensionProvider());
 serviceContainer.designViewToolbarButtons.length = 0;
 serviceContainer.designViewToolbarButtons.push(
   new PointerToolButtonProvider(),
@@ -23,6 +25,7 @@ DockSpawnTsWebcomponent.cssRootDirectory = "./node_modules/dock-spawn-ts/lib/css
 import { BaseCustomWebComponentConstructorAppend, css, html } from '@node-projects/base-custom-webcomponent';
 import { CommandHandling } from './CommandHandling.js'
 import './elements/DemoCondition.js'
+import { ShowConnectorPositionsExtensionProvider } from './extensions/ShowConnectorPositionsExtensionProvider.js';
 
 export class AppShell extends BaseCustomWebComponentConstructorAppend {
   activeElement: HTMLElement;
@@ -53,21 +56,6 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
       --input-border-color: #596c7a;
     }
 
-    .app-header {
-      background-color: var(--almost-black);
-      color: white;
-      height: 60px;
-      width: 100%;
-      position: fixed;
-      z-index: 100;
-      display: flex;
-      font-size: var(--app-toolbar-font-size, 20px);
-      align-items: center;
-      font-weight: 900;
-      letter-spacing: 2px;
-      padding-left: 10px;
-    }
-
     .app-body {
       box-sizing: border-box;
       display: flex;
@@ -76,23 +64,8 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
       overflow: hidden;
     }
 
-    .heavy {
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-    .lite {
-      font-weight: 100;
-      opacity: 0.5;
-      letter-spacing: normal;
-    }
-
     dock-spawn-ts > div {
       height: 100%;
-    }
-
-    attribute-editor {
-      height: 100%;
-      width: 100%;
     }
     `;
 
@@ -116,14 +89,14 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
         </dock-spawn-ts>
       </div>
     `;
-  
+
   async ready() {
     this._dock = this._getDomElement('dock');
     this._paletteTree = this._getDomElement<PaletteTreeView>('paletteTree');
     //this._bindableObjectsBrowser = this._getDomElement<BindableObjectsBrowser>('bindableObjectsBrowser');
     this._treeViewExtended = this._getDomElement<TreeViewExtended>('treeViewExtended');
-    this._propertyGrid = this._getDomElement<PropertyGrid>('propertyGrid');    
-   
+    this._propertyGrid = this._getDomElement<PropertyGrid>('propertyGrid');
+
     let code = "";
     let s = window.location.search;
     if (s.startsWith('?'))
@@ -158,7 +131,7 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
         if (panel) {
           let element = this._dock.getElementInSlot((<HTMLSlotElement><any>panel.elementContent));
           if (element && element instanceof DocumentContainer) {
-            (<DocumentContainer>element).dispose();         
+            (<DocumentContainer>element).dispose();
           }
         }
       }
@@ -201,7 +174,7 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
       }
     }, true);
     this._dock.appendChild(sampleDocument);
-    
+
     if (code) {
       sampleDocument.content = code;
     }
