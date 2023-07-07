@@ -1,0 +1,36 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { css, customElement, html } from "@node-projects/base-custom-webcomponent";
+import { BaseDiagramItem } from "./BaseDiagramItem.js";
+export let DemoList = class DemoList extends BaseDiagramItem {
+    static style = css `
+  div {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    background: white;
+  }`;
+    static template = html `
+  <div>
+  </div>`;
+    constructor() {
+        super();
+        this._restoreCachedInititalValues();
+    }
+    ready() {
+        this._parseAttributesToProperties();
+    }
+    connectors = [
+        { anchorX: 'end', anchorY: 'middle', offsetY: -50 },
+        { anchorX: 'end', anchorY: 'middle' },
+        { anchorX: 'end', anchorY: 'middle', offsetY: 50 }
+    ];
+};
+DemoList = __decorate([
+    customElement('demo-list')
+], DemoList);
