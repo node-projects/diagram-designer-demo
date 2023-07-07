@@ -22,6 +22,7 @@ export class ReadAndWriterService implements IHtmlParserService, IHtmlWriterServ
             designItems.push(DesignItem.createDesignItemFromInstance(el, serviceContainer, instanceServiceContainer));
         }
         if (data.connections) {
+            //@ts-ignore
             for (let c of data.connections) {
             }
         }
