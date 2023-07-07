@@ -1,12 +1,16 @@
-import { JsonFileElementsService, TreeViewExtended, PropertyGrid, DocumentContainer, PaletteTreeView, CopyPasteAsJsonService, PointerToolButtonProvider, SelectorToolButtonProvider, SeperatorToolProvider, ZoomToolButtonProvider, ExtensionType, TransformToolButtonProvider } from '@node-projects/web-component-designer';
+import { JsonFileElementsService, TreeViewExtended, PropertyGrid, DocumentContainer, PaletteTreeView, CopyPasteAsJsonService, PointerToolButtonProvider, SelectorToolButtonProvider, SeperatorToolProvider, ZoomToolButtonProvider, ExtensionType, TransformToolButtonProvider, CodeViewCodeMirror } from '@node-projects/web-component-designer';
 import createDefaultServiceContainer from '@node-projects/web-component-designer/dist/elements/services/DefaultServiceBootstrap.js';
 import { ShowConnectorPositionsExtensionProvider } from './designerExtensions/extensions/ShowConnectorPositionsExtensionProvider.js';
 
 //Setup Web Component Designer
 let serviceContainer = createDefaultServiceContainer();
+serviceContainer.register("htmlParserService", new ReadAndWriterService());
+serviceContainer.register("htmlWriterService", new ReadAndWriterService());
 serviceContainer.register("copyPasteService", new CopyPasteAsJsonService());
 serviceContainer.designerExtensions.set(ExtensionType.MouseOver, [new ShowConnectorPositionsExtensionProvider()]);
 serviceContainer.designerExtensions.get(ExtensionType.PrimarySelection).push(new ShowConnectorPositionsExtensionProvider());
+//Show connectors every time -> Enable the extension below, and remove the upper two
+//serviceContainer.designerExtensions.get(ExtensionType.Permanent).push(new ShowConnectorPositionsExtensionProvider());
 serviceContainer.designViewToolbarButtons.length = 0;
 serviceContainer.designViewToolbarButtons.push(
   new PointerToolButtonProvider(),
@@ -17,6 +21,7 @@ serviceContainer.designViewToolbarButtons.push(
   new SeperatorToolProvider(22),
   new TransformToolButtonProvider()
 );
+serviceContainer.config.codeViewWidget = CodeViewCodeMirror;
 
 //Setup DockSpawn
 import { DockSpawnTsWebcomponent } from 'dock-spawn-ts/lib/js/webcomponent/DockSpawnTsWebcomponent.js';
@@ -25,8 +30,11 @@ DockSpawnTsWebcomponent.cssRootDirectory = "./node_modules/dock-spawn-ts/lib/css
 
 //Demo project files
 import { BaseCustomWebComponentConstructorAppend, css, html } from '@node-projects/base-custom-webcomponent';
-import { CommandHandling } from './CommandHandling.js'
-import './elements/DemoCondition.js'
+import { CommandHandling } from './CommandHandling.js';
+import './elements/DemoCondition.js';
+import './elements/DemoList.js';
+import './elements/CurvedConnection.js';
+import { ReadAndWriterService } from './designerExtensions/services/ReadAndWriterService.js';
 
 export class AppShell extends BaseCustomWebComponentConstructorAppend {
   activeElement: HTMLElement;

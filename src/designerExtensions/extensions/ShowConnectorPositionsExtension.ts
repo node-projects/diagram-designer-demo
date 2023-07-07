@@ -1,5 +1,6 @@
 import { AbstractExtension, EventNames, IDesignItem, IDesignerCanvas, IExtensionManager, IRect } from "@node-projects/web-component-designer";
-import { IConnectorPosition, IConnectorPositionElement } from "../../IConnectorPosition.js";
+import { IConnectorPosition } from "../../interfaces/IConnectorPosition.js";
+import { IDiagramItem } from "../../interfaces/IDiagramItem.js";
 
 
 export class ShowConnectorPositionsExtension extends AbstractExtension {
@@ -16,7 +17,7 @@ export class ShowConnectorPositionsExtension extends AbstractExtension {
 
   override refresh() {
     let rect = this.designerCanvas.getNormalizedElementCoordinates(this.extendedItem.element);
-    let cpe = this.extendedItem.element as unknown as IConnectorPositionElement;
+    let cpe = this.extendedItem.element as unknown as IDiagramItem;
     if (cpe.connectors) {
       let i = 0;
       for (let cp of cpe.connectors) {

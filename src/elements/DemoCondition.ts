@@ -1,8 +1,9 @@
-import { BaseCustomWebComponentConstructorAppend, customElement, html } from "@node-projects/base-custom-webcomponent";
-import { IConnectorPosition, IConnectorPositionElement } from "../IConnectorPosition.js";
+import { customElement, html } from "@node-projects/base-custom-webcomponent";
+import { IConnectorPosition } from "../interfaces/IConnectorPosition.js";
+import { BaseDiagramItem } from "./BaseDiagramItem.js";
 
 @customElement('demo-condition')
-export class DemoCondition extends BaseCustomWebComponentConstructorAppend implements IConnectorPositionElement {
+export class DemoCondition extends BaseDiagramItem {
 
   static readonly template = html`
   <svg version="1.1" xmlns="http://www.w3.org/1999/xhtml" fill="#FFFFFF" stroke="#000000" viewBox="0 0 250 250" width="100%" height="100%" preserveAspectRatio="none" stroke-width="2">
@@ -18,7 +19,7 @@ export class DemoCondition extends BaseCustomWebComponentConstructorAppend imple
     this._parseAttributesToProperties();
   }
 
-  readonly connectors: IConnectorPosition[] = [
+  override readonly connectors: IConnectorPosition[] = [
     { anchorX: 'middle', anchorY: 'start' },
     { anchorX: 'middle', anchorY: 'end' },
     { anchorX: 'start', anchorY: 'middle' },

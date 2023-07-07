@@ -4,6 +4,16 @@
       "tag": "demo-condition",
       "defaultWidth": "200px",
       "defaultHeight": "130px"
+    },
+    {
+      "tag": "demo-list",
+      "defaultWidth": "200px",
+      "defaultHeight": "130px"
+    },
+    {
+      "tag": "curved-connection",
+      "defaultWidth": "300px",
+      "defaultHeight": "300px"
     }
   ]
 }

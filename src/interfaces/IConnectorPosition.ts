@@ -5,7 +5,3 @@ export interface IConnectorPosition {
     anchorY: 'start' | 'middle' | 'end';
     offsetY?: number;
 }
-
-export interface IConnectorPositionElement extends HTMLElement {
-    readonly connectors: IConnectorPosition[];
-}
