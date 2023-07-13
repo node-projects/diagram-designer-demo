@@ -20,9 +20,9 @@ export class DemoCondition extends BaseDiagramItem {
   }
 
   override readonly connectors: IConnectorPosition[] = [
-    { anchorX: 'middle', anchorY: 'start' },
-    { anchorX: 'middle', anchorY: 'end' },
-    { anchorX: 'start', anchorY: 'middle' },
-    { anchorX: 'end', anchorY: 'middle' }
+    { anchorX: 'middle', anchorY: 'start', direction: 'in' },
+    { anchorX: 'middle', anchorY: 'end', direction: 'out' },
+    { anchorX: 'start', anchorY: 'middle', direction: 'out' },
+    { anchorX: 'end', anchorY: 'middle', direction: 'out' }
   ]
 }

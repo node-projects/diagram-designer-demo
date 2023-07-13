@@ -28,8 +28,8 @@ export class DemoList extends BaseDiagramItem {
   }
 
   override readonly connectors: IConnectorPosition[] = [
-    { anchorX: 'end', anchorY: 'middle', offsetY: -50 },
-    { anchorX: 'end', anchorY: 'middle' },
-    { anchorX: 'end', anchorY: 'middle', offsetY: 50 }
+    { anchorX: 'end', anchorY: 'middle', offsetY: -50, direction: 'out' },
+    { anchorX: 'end', anchorY: 'middle', direction: 'out' },
+    { anchorX: 'end', anchorY: 'middle', offsetY: 50, direction: 'out' }
   ]
 }

@@ -4,4 +4,6 @@ export interface IConnectorPosition {
 
     anchorY: 'start' | 'middle' | 'end';
     offsetY?: number;
+
+    direction: 'in' | 'out' | 'both';
 }
