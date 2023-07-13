@@ -6,6 +6,7 @@ let serviceContainer = createDefaultServiceContainer();
 serviceContainer.register("htmlParserService", new ReadAndWriterService());
 serviceContainer.register("htmlWriterService", new ReadAndWriterService());
 serviceContainer.register("copyPasteService", new CopyPasteAsJsonService());
+serviceContainer.register("intializationService", new IntitializationService());
 serviceContainer.designerExtensions.set(ExtensionType.MouseOver, [new ShowConnectorPositionsExtensionProvider()]);
 serviceContainer.designerExtensions.get(ExtensionType.PrimarySelection).push(new ShowConnectorPositionsExtensionProvider());
 //Show connectors every time -> Enable the extension below, and remove the upper two
@@ -23,6 +24,7 @@ import './elements/DemoCondition.js';
 import './elements/DemoList.js';
 import './elements/CurvedConnection.js';
 import { ReadAndWriterService } from './designerExtensions/services/ReadAndWriterService.js';
+import { IntitializationService } from './designerExtensions/services/InitializationService.js';
 export class AppShell extends BaseCustomWebComponentConstructorAppend {
     activeElement;
     mainPage = 'designer';
@@ -149,6 +151,7 @@ export class AppShell extends BaseCustomWebComponentConstructorAppend {
         sampleDocument.setAttribute('dock-spawn-panel-type', 'document');
         sampleDocument.title = "document-" + this._documentNumber;
         sampleDocument.tabIndex = 0;
+        sampleDocument.codeView.mode = "javascript";
         sampleDocument.addEventListener('keydown', (e) => {
             if (e.key == "Escape") {
                 e.stopPropagation();

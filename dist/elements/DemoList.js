@@ -26,9 +26,9 @@ export let DemoList = class DemoList extends BaseDiagramItem {
         this._parseAttributesToProperties();
     }
     connectors = [
-        { anchorX: 'end', anchorY: 'middle', offsetY: -50 },
-        { anchorX: 'end', anchorY: 'middle' },
-        { anchorX: 'end', anchorY: 'middle', offsetY: 50 }
+        { anchorX: 'end', anchorY: 'middle', offsetY: -50, direction: 'out' },
+        { anchorX: 'end', anchorY: 'middle', direction: 'out' },
+        { anchorX: 'end', anchorY: 'middle', offsetY: 50, direction: 'out' }
     ];
 };
 DemoList = __decorate([
